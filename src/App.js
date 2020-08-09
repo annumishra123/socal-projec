@@ -1,33 +1,29 @@
-import React, { Component } from 'react';
-import {ReactTinyLink} from 'react-tiny-link';
-import './App.css';
+import React, { useEffect } from "react";
+import { Switch, Route } from "react-router-dom";
+import { Home } from "./components/Home";
 
-class App extends Component {
+import "bootstrap/dist/css/bootstrap.min.css";
+import { loadData } from "./actions/transactionActions";
 
-  render() {
-    return(
-      < div className="App">
-      <h3>Data... ...</h3>
-      <ReactTinyLink 
-        cardSize="small"
-        showGraphic={true}
-        maxLine={10}
-        minLine={1}
-        url="https://medium.com/better-programming/creating-a-simple-app-with-react-js-f6aa88998952"
-      />
-      <h3>Data... ...</h3>
-      <ReactTinyLink
-        cardSize="large"
-        showGraphic={true}
-        maxLine={5}
-        minLine={1}
-        url="https://www.hindustantimes.com/delhi-news/17-dead-in-delhi-violence-as-amit-shah-ajit-doval-chair-emergency-meetings/story-rqtBfiDfJGTezaFLLyZs6M.html"
-      />
+import { connect } from "react-redux";
+
+const App = ({ loadData }) => {
+  useEffect(() => {
+    console.log("LOAD DATA ....");
+
+    loadData();
+  }, []);
+
+  return (
+    <div style={{ maxWidth: "30rem", margin: "4rem auto" }}>
+      <Switch>
+        <Route exact path="/" component={Home} />
+       
+      </Switch>
     </div>
-    );
-  }
-}
+  );
+};
 
-export default App;
+const mapStateToProps = (state) => ({ ...state });
 
-
+export default connect(mapStateToProps, { loadData })(App);
