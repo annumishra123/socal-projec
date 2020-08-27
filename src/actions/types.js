@@ -1,6 +1,8 @@
-export const LOAD_DATA = "LOAD_DATA";
-export const UPDATE = "UPDATE";
-export const INSERT = "INSERT";
-export const DELETE = "DELETE";
-export const UPDATE_INDEX = "UPDATE_INDEX";
-export const UPDATE_DATA = "UPDATE_DATA";
+// AUTHENTICATION
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAIL = "LOGIN_FAIL";
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
+export const UPDATE_USER = "UPDATE_USER";
+
+

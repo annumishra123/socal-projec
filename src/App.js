@@ -1,29 +1,22 @@
-import React, { useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
-import { Home } from "./components/Home";
+import React, { Fragment } from "react";
+import { Route } from "react-router-dom";
+import "./App.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import { loadData } from "./actions/transactionActions";
+import Navbar from "./components/layout/Navbar";
+import Landing from "./components/layout/Landing";
+import MainRoute from "./routers/MainRoute";
 
-import { connect } from "react-redux";
-
-const App = ({ loadData }) => {
-  useEffect(() => {
-    console.log("LOAD DATA ....");
-
-    loadData();
-  }, []);
-
+const App = () => {
   return (
-    <div style={{ maxWidth: "30rem", margin: "4rem auto" }}>
-      <Switch>
-        <Route exact path="/" component={Home} />
-       
-      </Switch>
-    </div>
+    <Fragment>
+      <Navbar />
+      <Route exact path="/" component={Landing} />
+      <section className="container">
+        <MainRoute />
+      </section>
+    </Fragment>
   );
 };
 
-const mapStateToProps = (state) => ({ ...state });
-
-export default connect(mapStateToProps, { loadData })(App);
+export default App;

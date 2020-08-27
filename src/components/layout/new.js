@@ -34,7 +34,8 @@ const UserList = ({
   }, [users, apiHitPoint, pageNumber]);
 
   const updateHandler = (e, i) => {
-    if (e.target.value.length == 0) {
+    console.log(i,"jj>>>>>>>>>>>>>>")
+    if (e.target.value.length === 0) {
       setisEdit(true);
       update(e.target.value, i);
     } else {
