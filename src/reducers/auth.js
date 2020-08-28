@@ -1,9 +1,8 @@
 import {
   LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  REGISTER_SUCCESS,
   LOGOUT_SUCCESS,
-  UPDATE_USER,
+  LOGIN_FAIL,
+  REGISTER_SUCCESS
 } from "../actions/types";
 
 const initialState = {
@@ -29,8 +28,6 @@ export default function (state = initialState, action) {
     case REGISTER_SUCCESS:
       return { ...state, user: { ...payload }, isAuthenticated: false };
 
-    case UPDATE_USER:
-      return { ...state, user: { ...payload } };
 
     default:
       return state;

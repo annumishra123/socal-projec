@@ -1,22 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "../../Result.css";
-import Chart from "./Chart";
 
 const Result = ({ location }) => {
-  const [res, setRes] = useState([...location.state.data2]);
-  const [valueXaxis, setvalueXaxis] = useState([]);
-  const [valueYaxis, setvalueYaxis] = useState([]);
-
-  useEffect(() => {
-    setvalueXaxis([...res.map((e) => e.date)]);
-    setvalueYaxis([...res.map((e) => e.nav)]);
-  }, []);
-
   return (
     <div>
       <div className="inf-content">
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-4">
             <div className="table-responsive">
               <table className="table table-user-information">
                 <tbody>
@@ -24,29 +14,25 @@ const Result = ({ location }) => {
                     <td>
                       <strong>
                         <span className="glyphicon glyphicon-asterisk text-primary"></span>
-                        Fund House
+                        Name
                       </strong>
                     </td>
-                    <td className="text-primary">
-                      {location.state.data.fund_house}
-                    </td>
+                    <td className="text-primary">{location.state.name}</td>
                   </tr>
                   <tr>
                     <td>
                       <strong>
                         <span className="glyphicon glyphicon-user  text-primary"></span>
-                        Scheme Category
+                        Email
                       </strong>
                     </td>
-                    <td className="text-primary">
-                      {location.state.data.scheme_category}
-                    </td>
+                    <td className="text-primary">{location.state.email}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-4">
             {/* <br /> */}
             <div className="table-responsive">
               <table className="table table-user-information">
@@ -55,23 +41,47 @@ const Result = ({ location }) => {
                     <td>
                       <strong>
                         <span className="glyphicon glyphicon-bookmark text-primary"></span>
-                        Scheme Name
+                        Mobile No
                       </strong>
                     </td>
-                    <td className="text-primary">
-                      {location.state.data.scheme_name}
-                    </td>
+                    <td className="text-primary">{location.state.phoneNo}</td>
                   </tr>
                   <tr>
                     <td>
                       <strong>
                         <span className="glyphicon glyphicon-calendar text-primary"></span>
-                        Scheme Type
+                        Gender
                       </strong>
                     </td>
-                    <td className="text-primary">
-                      {location.state.data.scheme_type}
+                    <td className="text-primary">{location.state.gender}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="col-md-4">
+            {/* <br /> */}
+            <div className="table-responsive">
+              <table className="table table-user-information">
+                <tbody>
+                  <tr>
+                    <td>
+                      <strong>
+                        <span className="glyphicon glyphicon-bookmark text-primary"></span>
+                        UserId
+                      </strong>
                     </td>
+                    <td className="text-primary">{location.state.id}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>
+                        <span className="glyphicon glyphicon-calendar text-primary"></span>
+                        Age
+                      </strong>
+                    </td>
+                    <td className="text-primary">{location.state.age}</td>
                   </tr>
                 </tbody>
               </table>
@@ -79,7 +89,6 @@ const Result = ({ location }) => {
           </div>
         </div>
       </div>
-      <Chart valueXaxis={valueXaxis} valueYaxis={valueYaxis} />
     </div>
   );
 };

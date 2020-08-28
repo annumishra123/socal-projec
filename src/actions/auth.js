@@ -2,24 +2,20 @@ import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import {
   LOGIN_SUCCESS,
-  REGISTER_SUCCESS,
   LOGOUT_SUCCESS,
-  UPDATE_USER,
 } from "./types";
+import userData from '../data.json'
 
 toast.configure()
 
 let user = {
-  name: "Fake Name",
-  email: "test@gmail.com",
-  password: "qwer1234",
+  
 };
 
 // Login USER
 export const login = (email, password) => (dispatch) => {
-
-  if (email === user.email && password === user.password) {
-    console.log("IF");
+  
+  if (email === userData.user.username && password === userData.user.password) {
     toast.success("User Login!!")
 
     dispatch({
@@ -31,27 +27,11 @@ export const login = (email, password) => (dispatch) => {
   }
 };
 
-// REGISTER USER
-export const register = (newUser, history) => (dispatch) => {
-  user = { ...newUser };
-  dispatch({
-    type: REGISTER_SUCCESS,
-    payload: user,
-  });
-  history.push("/login");
-};
+
 
 // LOGOUT USER
 export const logout = () => (dispatch) => {
   dispatch({
     type: LOGOUT_SUCCESS,
-  });
-};
-
-export const updateUser = (data) => (dispatch) => {
-
-  dispatch({
-    type: UPDATE_USER,
-    payload: data,
   });
 };

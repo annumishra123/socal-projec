@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
-import axios from "axios";
-
+import UserData from "../../data.json";
 import "../../App.css";
 
 const Developers = ({ history }) => {
@@ -8,24 +7,17 @@ const Developers = ({ history }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    async function myFunct() {
-      const res1 = axios.get("https://api.mfapi.in/mf/100121");
-      const res2 = axios.get("https://api.mfapi.in/mf/100350");
-      const res3 = axios.get("https://api.mfapi.in/mf/142330");
-      const res4 = axios.get("https://api.mfapi.in/mf/105405");
-      const res5 = axios.get("https://api.mfapi.in/mf/117593");
-
-      Promise.all([res1, res2, res3, res4, res5]).then((values) => {
-        setData(values);
-      });
+    function myFunct() {
+      const res = UserData.data.user;
+      setData(res);
     }
     myFunct();
   }, [setData]);
 
-  const onClick = (data, data2) => {
+  const onClick = (data) => {
     history.push({
       pathname: "/result",
-      state: {data, data2}
+      state: data,
     });
   };
 
@@ -48,19 +40,15 @@ const Developers = ({ history }) => {
         </div>
       </div>
       <div className="search-list">
-        <h3 style={{ textAlign: "center" }}>{data.length}  Records Found</h3>
+        <h3 style={{ textAlign: "center" }}>{data.length} Records Found</h3>
         <table className="table">
           <tbody>
             {data.map((name, index) => {
               if (filter.length !== 0) {
-                if (
-                  name.data.meta.scheme_name
-                    .toLowerCase()
-                    .startsWith(filter.toLowerCase())
-                ) {
+                if (name.email.toLowerCase().startsWith(filter.toLowerCase())) {
                   return (
-                    <tr onClick={() => onClick(name.data.meta, name.data.data)} key={index}>
-                      <td style={{cursor:"pointer"}}>{name.data.meta.scheme_name}</td>
+                    <tr onClick={() => onClick(name)} key={index}>
+                      <td style={{ cursor: "pointer" }}>{name.email}</td>
                     </tr>
                   );
                 } else {
@@ -69,8 +57,8 @@ const Developers = ({ history }) => {
               }
               return (
                 <Fragment>
-                  <tr onClick={() => onClick(name.data.meta, name.data.data)}>
-                    <td style={{cursor:"pointer"}}>{name.data.meta.scheme_name}</td>
+                  <tr onClick={() => onClick(name)}>
+                    <td style={{ cursor: "pointer" }}>{name.email}</td>
                   </tr>
                 </Fragment>
               );
