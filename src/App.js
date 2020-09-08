@@ -1,21 +1,12 @@
-import React, { Fragment } from "react";
-import { Route } from "react-router-dom";
+import React from "react";
 import "./App.css";
-// import "bootstrap/dist/css/bootstrap.min.css";
-
-import Navbar from "./components/layout/Navbar";
-import Landing from "./components/layout/Landing";
-import MainRoute from "./routers/MainRoute";
+import Dev from "./components/layout/Developers";
 
 const App = () => {
   return (
-    <Fragment>
-      <Navbar />
-      <Route exact path="/" component={Landing} />
-      <section className="container">
-        <MainRoute />
-      </section>
-    </Fragment>
+    <div className="app">
+      <Dev />
+    </div>
   );
 };
 
