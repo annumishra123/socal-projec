@@ -1,21 +1,25 @@
-import React, { useState, useEffect } from "react";
-import UserData from "../../data.json";
+import React, { useState } from "react";
+import { connect } from "react-redux";
 import Card from "./Card.js";
 import SearchBox from "./SearchBox.js";
+import Pagination from "./Pagination";
 
-const Developers = () => {
+
+const Developers = ({users}) => {
   const [searchData, setSearchData] = useState("");
-  const [data, setData] = useState([]);
   const [username, setUserName] = useState(false);
+  const [showPerPage, setShowPrPage] = useState(4)
 
-  useEffect(() => {
-    function myFunct() {
-      const res = UserData.members;
-      setData(res);
-    }
-    myFunct();
-  }, [setData]);
+  const [pagination, setPagination] = useState({
+    start: 0,
+    end: showPerPage
+  });
 
+
+  const onPaginationChange = (start, end) => {
+    setPagination({ start: start, end: end})
+  }
+  
   const onClick = (data) => {
     setUserName(data);
   };
@@ -24,13 +28,13 @@ const Developers = () => {
     <div className="container search-table">
       <SearchBox searchData={searchData} setSearchData={setSearchData} />
       <div className="search-list">
-        <h3 style={{ textAlign: "center" }}>{data.length} Records Found</h3>
+        <h3 style={{ textAlign: "center" }}>{users.length} Records Found</h3>
         <table className="table">
           <tbody>
-            {data.map((name, index) => {
+            {users.slice(pagination.start, pagination.end).map((name, index) => {
               if (searchData.length !== 0) {
                 if (
-                  name.real_name
+                  name.title
                     .toLowerCase()
                     .startsWith(searchData.toLowerCase())
                 ) {
@@ -42,7 +46,7 @@ const Developers = () => {
                       data-whatever="@mdo"
                       onClick={() => onClick(name)}
                     >
-                      <td style={{ cursor: "pointer" }}>{name.real_name}</td>
+                      <td style={{ cursor: "pointer" }}>{name.title}</td>
                     </tr>
                   );
                 } else {
@@ -57,16 +61,21 @@ const Developers = () => {
                   data-whatever="@mdo"
                   onClick={() => onClick(name)}
                 >
-                  <td style={{ cursor: "pointer" }}>{name.real_name}</td>
+                  <td style={{ cursor: "pointer" }}>{name.title}</td>
                 </tr>
               );
             })}
           </tbody>
         </table>
       </div>
-      <Card name={username} />
+      <Card name={username} />  
+      <Pagination showPerPage={showPerPage} onPaginationChange={onPaginationChange}/>
     </div>
   );
 };
 
-export default Developers;
+const mapStateToProps = (state) => ({
+  users: state.auth.users,
+});
+
+export default connect(mapStateToProps, {})(Developers);

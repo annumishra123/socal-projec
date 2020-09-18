@@ -1,53 +1,6 @@
-import React, { useState, useEffect } from "react";
-import Calendar from "react-calendar";
-import Moment from "moment";
-import "react-calendar/dist/Calendar.css";
+import React from "react";
 
 const Card = ({ name }) => {
-  const [activity, setActivity] = useState("Not Activity Today");
-  const [state, setState] = useState({
-    date: new Date(),
-  });
-  const [oldData, setOlddata] = useState("Not Previous Activity");
-
-  useEffect(() => {
-    for (let i = 0; name && i < name.activity_periods.length; i++) {
-      let startTime = Moment(name.activity_periods[i].start_time).format("L");
-      let nowT = Moment().format("L");
-      
-      if (nowT === startTime) {
-        setActivity(
-          `${Moment(name.activity_periods[i].start_time).format("L")}
-          ${Moment(name.activity_periods[i].start_time).format(
-            "hh:mm"
-          )} to ${Moment(name.activity_periods[i].end_time).format("hh:mm")}`
-        );
-        break;
-      } else {
-        setActivity("No Activity Today");
-      }
-    }
-  }, [name]);
-
-  const onChange = (date) => {
-    for (let i = 0; name && i < name.activity_periods.length; i++) {
-      let startTime = Moment(name.activity_periods[i].start_time).format("L");
-      let endTime = Moment(name.activity_periods[i].end_time);
-      let selectT = Moment(date).format("L");
-      if (startTime === selectT) {
-        setOlddata(
-          `${Moment(name.activity_periods[i].start_time).format("L")}
-            ${Moment(name.activity_periods[i].start_time).format(
-              "hh:mm"
-            )} to ${Moment(name.activity_periods[i].end_time).format("hh:mm")}`
-        );
-        break;
-      } else {
-        setOlddata("Not Previous Activity");
-      }
-    }
-  };
-
   return (
     <div
       className="modal fade"
@@ -60,7 +13,7 @@ const Card = ({ name }) => {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">
-              User Data
+              All Data
             </h5>
             <button
               type="button"
@@ -81,38 +34,20 @@ const Card = ({ name }) => {
                         <td>
                           <strong>
                             <span className="glyphicon glyphicon-asterisk text-primary"></span>
-                            User Name
+                            Title
                           </strong>
                         </td>
-                        <td className="text-primary">{name.real_name}</td>
+                        <td className="text-primary">{name.title}</td>
                       </tr>
+                      
                       <tr>
                         <td>
                           <strong>
                             <span className="glyphicon glyphicon-user  text-primary"></span>
-                            Time Zone
+                            Flight Number
                           </strong>
                         </td>
-                        <td className="text-primary">{name.tz}</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <strong>
-                            <span className="glyphicon glyphicon-user  text-primary"></span>
-                            Today Activity
-                          </strong>
-                        </td>
-                        <td className="text-primary">{activity}</td>
-                      </tr>
-
-                      <tr>
-                        <td>
-                          <strong>
-                            <span className="glyphicon glyphicon-user  text-primary"></span>
-                            Previous Activity
-                          </strong>
-                        </td>
-                        <td className="text-primary">{oldData}</td>
+                        <td className="text-primary">{name.flight_number}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -120,7 +55,31 @@ const Card = ({ name }) => {
               </div>
 
               <div className="col-md-6">
-                <Calendar onChange={onChange} value={state.date} />
+                <div className="table-responsive">
+                  <table className="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <strong>
+                            <span className="glyphicon glyphicon-asterisk text-primary"></span>
+                            Event Date
+
+                          </strong>
+                        </td>
+                        <td className="text-primary">{name.event_date_utc}</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <strong>
+                            <span className="glyphicon glyphicon-user  text-primary"></span>
+                            Details
+                          </strong>
+                        </td>
+                        <td className="text-primary">{name.details}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
